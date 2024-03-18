@@ -7,13 +7,17 @@ fi
 PLUGIN_DIR="${${(%):-%x}:A:h}"
 BIN_URL=https://github.com/awterman/sync-dot-files/releases/latest/download/sdf
 
-if [[ ! -f $PLUGIN_DIR/sdf ]]; then
-  echo "Downloading sdf..."
-  curl -L $BIN_URL -o $PLUGIN_DIR/sdf
-  chmod +x $PLUGIN_DIR/sdf
-fi
+original_sdf_path=$(which sdf 2>/dev/null)
 
-original_sdf_path=$(which sdf)
+# check if sdf is a valid command
+if [[ -z "$original_sdf_path" ]]; then
+  if [[ ! -f $PLUGIN_DIR/sdf ]]; then
+    echo "Downloading sdf..."
+    curl -L $BIN_URL -o $PLUGIN_DIR/sdf
+    chmod +x $PLUGIN_DIR/sdf
+  fi
+  original_sdf_path=$PLUGIN_DIR/sdf
+fi
 
 sdf() {
   if [[ $1 == "cd" ]]; then
