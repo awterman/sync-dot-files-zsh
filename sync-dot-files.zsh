@@ -27,4 +27,10 @@ sdf() {
   fi
 }
 
-sdf is-clean 1>/dev/null
+if sdf is-clean > /dev/null 2>&1; then
+  echo "dotfiles are not synced, run"
+  echo ""
+  echo "  sdf cd"
+  echo ""
+  echo "to go to the repository and check"
+fi
