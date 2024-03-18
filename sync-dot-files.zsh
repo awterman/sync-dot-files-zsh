@@ -26,3 +26,5 @@ sdf() {
     SDF_SUPPORT_CD=true $original_sdf_path "$@"
   fi
 }
+
+sdf is-clean 1>/dev/null
